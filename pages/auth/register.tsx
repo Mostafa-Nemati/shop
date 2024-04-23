@@ -4,7 +4,7 @@ const Register : NextPage = () => {
     return (
         <>
             <h1>Register</h1>
-            <FormRegister name='name'/>
+            <FormRegister />
         </>
     )
 }
