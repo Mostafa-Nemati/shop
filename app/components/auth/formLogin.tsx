@@ -4,33 +4,28 @@ import { MyFormValuesLogin } from "../../constant/auth"
 import InnerLoginForm from "./shared/innerFormLogin"
 import callApi from "../../../pages/api/callApi"
 import validationError from "../../exceptions/validationError"
+const phoneRegExp = /^(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|98)\d{7}$/
 
 const validationFormLogin = yup.object().shape({
-    email: yup.string().required().email(),
-    password: yup.string().required().min(8)
+    phone: yup.string().required().min(8).matches(phoneRegExp, 'the phone format is not correct')
 })
 
 interface LoginFormProps {
-    setCookies: any
+    setToken : (token : string) => void
+    router: any
 }
 
 const FormLogin = withFormik<LoginFormProps, MyFormValuesLogin>({
     mapPropsToValues: props => ({
-        email: '',
-        password: ''
+        phone: ''
     }),
     validationSchema: validationFormLogin,
     handleSubmit: async (values, { props, setFieldError }) => {
         try {
             const res = await callApi().post('/auth/login', values)
             if (res.status === 200) {
-                props.setCookies('shop-token', res.data.token, {
-                    'maxAge': 3600 * 24 * 30,
-                    'domain': 'localhost',
-                    'path': '/',
-                    'sameSite': 'lax'
-                })
-                console.log(res.data.token)
+                props.setToken(res.data.token)
+                props.router.push('/auth/login/step-two')
             }
         } catch (error) {
             if (error instanceof validationError) {
