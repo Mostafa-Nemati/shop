@@ -1,10 +1,10 @@
 import { withFormik } from "formik"
 import * as yup from 'yup'
 import { MyFormPhoneVerify } from "../../constant/auth"
-import InnerLoginForm from "./shared/innerFormLogin"
-import callApi from "../../../pages/api/callApi"
 import validationError from "../../exceptions/validationError"
 import InnerPhoneVerifyForm from "./shared/innerPhoneVerify"
+import callApi from "../../../pages/api/callApi"
+import Router from "next/router"
 const codeRegExp = /^[0-9]+$/
 
 const validationFormLogin = yup.object().shape({
@@ -12,21 +12,23 @@ const validationFormLogin = yup.object().shape({
 })
 
 interface PhoneVerifyFormProps {
+    token?: string,
+    clearToken: () => void
 }
 
 const FormPhoneVerify = withFormik<PhoneVerifyFormProps, MyFormPhoneVerify>({
     mapPropsToValues: props => ({
-        token: '73f98b55-bb0c-4c49-9f2b-670e92c8918c',
-        code:''
+        code: '',
+        token: props.token || ""
     }),
     validationSchema: validationFormLogin,
     handleSubmit: async (values, { props, setFieldError }) => {
         try {
-            // const res = await callApi().post('/auth/login', values)
-            // if (res.status === 200) {
-            //     console.log(res)
-            // }
-            console.log(values)
+            const res = await callApi().post('/auth/login/verify-phone', values)
+            if (res.status === 200) {
+                props.clearToken()
+                Router.push('/')
+            }
         } catch (error) {
             if (error instanceof validationError) {
                 Object.entries(error.message).forEach(([key, value]) => setFieldError(key, value as string))

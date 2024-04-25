@@ -1,8 +1,8 @@
 import { Form, FormikProps } from "formik"
-import { MyFormValuesLogin } from "../../../constant/auth"
+import { MyFormPhoneVerify } from "../../../constant/auth"
 import Input from "../../Input"
 
-const InnerPhoneVerifyForm = (props : FormikProps<MyFormValuesLogin>) => {
+const InnerPhoneVerifyForm = (props : FormikProps<MyFormPhoneVerify>) => {
     return (
         <Form className="max-w-sm mx-auto mt-10">
             <div className="mb-5">

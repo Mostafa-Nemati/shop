@@ -13,7 +13,7 @@ export const authSlice = createSlice({
     name:'auth',
     initialState,
     reducers : {
-        updatePhoneVerifyToken : (state, action: PayloadAction<string> ) => {
+        updatePhoneVerifyToken : (state, action: PayloadAction<string| undefined> ) => {
             state.phoneVerifyToken = action.payload
         }
     }
