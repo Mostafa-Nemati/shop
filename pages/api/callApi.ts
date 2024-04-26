@@ -10,7 +10,7 @@ const callApi = () => {
         (config) => {
             return config
         },
-        error => Promise.reject(error)
+        error => {throw error}
     )
 
     axiosInstance.interceptors.response.use(
@@ -24,7 +24,7 @@ const callApi = () => {
                     throw new validationError(res.data.errors)
                 }
             }
-            Promise.reject(error)
+            throw error
         }
     )
 

@@ -6,28 +6,29 @@ import InnerPhoneVerifyForm from "./shared/innerPhoneVerify"
 import callApi from "../../../pages/api/callApi"
 import Router from "next/router"
 const codeRegExp = /^[0-9]+$/
-
+import { storeLoginToken } from '../../hooks/auth'
 const validationFormLogin = yup.object().shape({
     code: yup.string().required().matches(codeRegExp, 'باید عدد وارد شود').length(6)
 })
 
 interface PhoneVerifyFormProps {
     token?: string,
-    clearToken: () => void
+    clearToken: () => void,
 }
 
 const FormPhoneVerify = withFormik<PhoneVerifyFormProps, MyFormPhoneVerify>({
-    mapPropsToValues: props => ({
+    mapPropsToValues: (props : any) => ({
         code: '',
         token: props.token || ""
     }),
     validationSchema: validationFormLogin,
-    handleSubmit: async (values, { props, setFieldError }) => {
+    handleSubmit: async (values : any, { props, setFieldError } : any) => {
         try {
             const res = await callApi().post('/auth/login/verify-phone', values)
             if (res.status === 200) {
+                storeLoginToken(res.data?.user?.token);
+                await Router.push('/panel');
                 props.clearToken()
-                Router.push('/')
             }
         } catch (error) {
             if (error instanceof validationError) {
