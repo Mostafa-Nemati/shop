@@ -7,13 +7,11 @@ interface props {
     children: ReactNode
 }
 
-const UserPanelLayout = ({ children }: props) => {
+const GuestLayout = ({ children }: props) => {
     const router = useRouter();
     const { user, error, loading } = useAuth();
-
-    if (loading) return <h1>Loading ...</h1>
-    if (error) {
-        router.push('/auth/login')
+    if (user) {
+        router.push('/panel');
         return <></>
     }
 
@@ -23,4 +21,4 @@ const UserPanelLayout = ({ children }: props) => {
         </div>
     )
 }
-export default UserPanelLayout
+export default GuestLayout

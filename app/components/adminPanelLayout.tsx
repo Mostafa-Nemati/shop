@@ -7,7 +7,7 @@ interface props {
     children: ReactNode
 }
 
-const UserPanelLayout = ({ children }: props) => {
+const AdminPanelLayout = ({ children }: props) => {
     const router = useRouter();
     const { user, error, loading } = useAuth();
 
@@ -17,10 +17,15 @@ const UserPanelLayout = ({ children }: props) => {
         return <></>
     }
 
+    if (!user?.is_admin) {
+        router.push('/')
+        return <></>
+    }
+
     return (
         <div className="w-full text-2xl">
             {children}
         </div>
     )
 }
-export default UserPanelLayout
+export default AdminPanelLayout

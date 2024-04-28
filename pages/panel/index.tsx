@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserPanelLayout from "../../app/components/userPanelLayout";
 import { NextPageWithLayout } from "../_app";
+import UserInfo from "../../app/components/panel/userInfo";
 
 const Panel : NextPageWithLayout = () => {
     const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const Panel : NextPageWithLayout = () => {
 
     return (
         <div>
-            user dashbord
+            <UserInfo />
         </div>
     )
 }

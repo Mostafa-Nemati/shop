@@ -1,11 +1,12 @@
-import type { NextPage } from 'next'
 import FormPhoneVerify from '../../../app/components/auth/formPhoneVerify';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { selectPhoneVerifyToken } from '../../../app/store';
+import { selectPhoneVerifyToken } from '../../../app/store/auth';
 import { useEffect } from 'react';
 import Router from 'next/router';
 import { updatePhoneVerifyToken } from '../../../app/store/auth';
-const PhoneVerify: NextPage = () => {
+import { NextPageWithLayout } from '../../_app';
+import GuestLayout from '../../../app/components/guestLayout';
+const PhoneVerify: NextPageWithLayout = () => {
 
     const token = useAppSelector(selectPhoneVerifyToken);
     const dispatch = useAppDispatch();
@@ -30,5 +31,6 @@ const PhoneVerify: NextPage = () => {
         </>
     )
 }
+PhoneVerify.getLayout = page => <GuestLayout>{page}</GuestLayout>
 
 export default PhoneVerify;
