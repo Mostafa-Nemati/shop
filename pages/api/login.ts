@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cookie from 'cookie'
 type Data = {
-  name: string
+  status: string
 }
 interface ExtendeNextApiRequest extends NextApiRequest {
   body: {
@@ -25,5 +25,5 @@ export default function handler(
       //secure : ' https'
     })
   )
-  res.status(200).json({ name: 'John Doe' })
+  res.status(200).json({ status: 'success' })
 }
