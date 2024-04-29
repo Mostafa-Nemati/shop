@@ -1,6 +1,8 @@
 import { Form, FormikProps } from "formik"
 import Input from "../../../Input"
 import { MyFormProductCreate } from "../../../../constant/admin"
+import Textarea from "../../../textarea"
+import SelectBox from "../../../selectbox"
 
 const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
     return (
@@ -15,6 +17,20 @@ const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
                 </div>
 
                 <div className="sm:col-span-2">
+                    <SelectBox
+                        name="category_id"
+                        label="دسته بندی"
+                        options={
+                            [
+                                { label: 'لطفا انتخاب کنید', value : ''},
+                                { label: 'جاوااسکریپت', value : 1},
+                                { label: 'پی اچ پی', value : 2}
+                            ]
+                        }
+                    />
+                </div>
+
+                <div className="sm:col-span-2">
                     <Input
                         name="price"
                         type="text"
@@ -23,10 +39,10 @@ const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
                 </div>
 
                 <div className="sm:col-span-4">
-                    <Input
+                    <Textarea
                         name="description"
-                        type="text"
                         label="درباره محصول"
+                        onChange={(e) => props.setFieldValue('description', (e.target as HTMLTextAreaElement).value)}
                     />
                 </div>
             </div>
