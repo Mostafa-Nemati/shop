@@ -9,22 +9,24 @@ import {
     UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import Image from 'next/image'
+import ActiveLink from '../../../shared/activeLink'
 
-const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
-    { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
+
 
 interface props {
-    open : boolean,
-    setOpen : React.Dispatch<React.SetStateAction<boolean>>
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SidebarLayout = ({ open, setOpen } : props) => {
+const SidebarLayout = ({ open, setOpen }: props) => {
+    const navigation = [
+        { name: 'Dashboard', href: '/admin', icon: HomeIcon },
+        { name: 'products', href: '/admin/products', icon: FolderIcon },
+        { name: 'users', href: '/admin/users', icon: UsersIcon },
+    ]
+
     return (
         <>
             <Transition.Root show={open} as={Fragment}>
@@ -82,18 +84,17 @@ const SidebarLayout = ({ open, setOpen } : props) => {
                                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
                                     <nav className="space-y-1 px-2">
                                         {navigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className={` ${item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-base font-medium rounded-md `}
-                                                  
-                                            >
-                                                <item.icon
-                                                    className={`${item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300'} mr-4 flex-shrink-0 h-6 w-6`}
-                                                    aria-hidden="true"
-                                                />
-                                                {item.name}
-                                            </a>
+                                            <ActiveLink key={item.name} href={item.href}>
+                                                {({ active }) => (
+                                                    <a className={`${active ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md`} >
+                                                        <item.icon
+                                                            className={`${active ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300'} ml-3 flex-shrink-0 h-6 w-6`}
+                                                            aria-hidden="true"
+                                                        />
+                                                        {item.name}
+                                                    </a>
+                                                )}
+                                            </ActiveLink>
                                         ))}
                                     </nav>
                                 </div>
@@ -120,17 +121,17 @@ const SidebarLayout = ({ open, setOpen } : props) => {
                     <div className="flex flex-1 flex-col overflow-y-auto">
                         <nav className="flex-1 space-y-1 px-2 py-4">
                             {navigation.map((item) => (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    className={`${item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md`}
-                                >
-                                    <item.icon
-                                        className={`${item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300'} ml-3 flex-shrink-0 h-6 w-6`}
-                                        aria-hidden="true"
-                                    />
-                                    {item.name}
-                                </a>
+                                <ActiveLink key={item.name} href={item.href}>
+                                    {({ active }) => (
+                                        <a className={`${active ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md`} >
+                                            <item.icon
+                                                className={`${active ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300'} ml-3 flex-shrink-0 h-6 w-6`}
+                                                aria-hidden="true"
+                                            />
+                                            {item.name}
+                                        </a>
+                                    )}
+                                </ActiveLink>
                             ))}
                         </nav>
                     </div>
