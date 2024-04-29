@@ -4,6 +4,7 @@ import callApi from "../../../../pages/api/callApi"
 import validationError from "../../../exceptions/validationError"
 import InnerProductCreateForm from "../../auth/shared/admin/innerFormProductCreate"
 import { MyFormProductCreate } from "../../../constant/admin"
+import Router  from "next/router"
 
 const validationSchema = yup.object().shape({
     title: yup.string().required().min(8).max(255),
@@ -26,15 +27,22 @@ const FormProductCreate = withFormik<ProductFormProps, MyFormProductCreate>({
     handleSubmit: async (values, { props, setFieldError }) => {
         try {
             console.log(values)
-            //const res = await callApi().post('/auth/login', values)
+            const res = await callApi().post('/products/create', {
+                ...values,
+                body: values.description,
+                category : values.category_id
+            })
+
+            Router.push('/admin/products')
             //if (res.status === 200) {
             //    props.router.push('/auth/login/step-two')
             //}
         } catch (error) {
             if (error instanceof validationError) {
-                //Object.entries(error.message).forEach(([key, value]) => setFieldError(key, value as string))
-
-            }
+                Object.entries(error.message).forEach(([key, value]) => setFieldError(key, value as string))
+                return;
+            }   
+            console.log(error)
         }
     }
 })(InnerProductCreateForm)

@@ -2,13 +2,12 @@ import { NextPageWithLayout } from "../../_app";
 import AdminPanelLayout from "../../../app/components/adminPanelLayout";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import * as Yup from "yup";
 import Modal from "../../../app/shared/modal";
-import { Form, Formik } from "formik";
-import Input from "../../../app/components/Input";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import FormProductCreate from "../../../app/components/admin/product/formCreate";
+import useSWR from "swr";
+import { GetProducts } from "../../../app/services/product";
 
 const people = [
     { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
@@ -18,7 +17,14 @@ const people = [
 
 const ProductList: NextPageWithLayout = () => {
     //const [showAddProduct, setShowAddProduct] = useState(false);
+    const [page, setPage] = useState()
     const router = useRouter();
+
+
+    const {data : products, error} = useSWR({ url : 'admin/products', page }, GetProducts)
+    const loadingProducts = !products && !error;
+
+
     const setShowAddProduct = (show = true) => {
         router.push(`/admin/products${show ? '?create-product' : ''}`)
     }
@@ -77,12 +83,12 @@ const ProductList: NextPageWithLayout = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-200 bg-white">
-                                        {people.map((person) => (
-                                            <tr key={person.email}>
+                                        {products.map((product : any) => (
+                                            <tr key={product.id}>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                    {person.name}
+                                                    {product.id}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.title}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{product.title}</td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                     <a href="#" className="text-indigo-600 hover:text-indigo-900 ml-4">
                                                         ویرایش
