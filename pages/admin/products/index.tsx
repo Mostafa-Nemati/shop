@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import Input from "../../../app/components/Input";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import FormProductCreate from "../../../app/components/admin/product/formCreate";
 
 const people = [
     { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
@@ -29,53 +30,7 @@ const ProductList: NextPageWithLayout = () => {
                 >
                     <div className="inline-block w-full max-w-3xl mt-8 mb-20 overflow-hidden text-right align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
                         <h2 className="text-xl font-bold leading-tight text-gray-800 py-5 px-7  border-b">ساخت محصول</h2>
-                        <Formik
-                            initialValues={{}}
-                            validationSchema={Yup.object().shape({})}
-                            onSubmit={() => { }}
-                        >
-                            {({ values, isSubmitting, setFieldValue }) => (
-                                <Form>
-                                    <div className="p-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-8">
-                                        <div className="sm:col-span-2">
-                                            <Input
-                                                name="label"
-                                                type="text"
-                                                label="نام محصول"
-                                            />
-                                        </div>
-
-                                        <div className="sm:col-span-2">
-                                            <Input
-                                                name="label"
-                                                type="text"
-                                                label="قیمت محصول"
-                                            />
-                                        </div>
-
-                                        <div className="sm:col-span-4">
-                                            <Input
-                                                name="label"
-                                                type="text"
-                                                label="درباره محصول"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="p-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center">
-                                        <button
-                                            type="submit"
-                                            className="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-700 ">
-                                            ایجاد محصول
-                                        </button>
-                                        <button
-                                            onClick={() => setShowAddProduct(false)}
-                                            type="button"
-                                            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">انصراف</button>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
+                        <FormProductCreate />
                     </div>
                 </Modal>
             }
@@ -97,8 +52,7 @@ const ProductList: NextPageWithLayout = () => {
                             اضافه کردن محصول
                         </button>*/}
                         <Link
-                            href="/admin/products/?create-product"
-                            as="/admin/products/create"
+                            href="/admin/products/create"
                         >
                             <a className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
                                 اضافه کردن محصول
