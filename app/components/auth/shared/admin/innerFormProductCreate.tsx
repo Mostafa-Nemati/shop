@@ -3,8 +3,13 @@ import Input from "../../../Input"
 import { MyFormProductCreate } from "../../../../constant/admin"
 import Textarea from "../../../textarea"
 import SelectBox from "../../../selectbox"
+import Product from "../../../../models/product"
 
-const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
+type ProductFormProps = FormikProps<MyFormProductCreate> & {
+    product: Product
+}
+
+const InnerProductCreateForm = (props: ProductFormProps) => {
     return (
         <Form>
             <div className="p-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-8">
@@ -22,9 +27,9 @@ const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
                         label="دسته بندی"
                         options={
                             [
-                                { label: 'لطفا انتخاب کنید', value : ''},
-                                { label: 'جاوااسکریپت', value : 1},
-                                { label: 'پی اچ پی', value : 2}
+                                { label: 'لطفا انتخاب کنید', value: '' },
+                                { label: 'جاوااسکریپت', value: 1 },
+                                { label: 'پی اچ پی', value: 2 }
                             ]
                         }
                     />
@@ -51,7 +56,9 @@ const InnerProductCreateForm = (props: FormikProps<MyFormProductCreate>) => {
                 <button
                     type="submit"
                     className="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-700 ">
-                    ایجاد محصول
+                    {
+                        props?.product ? 'ثبت تغییرات' : 'ایجاد محصول'
+                    }
                 </button>
                 <button
                     onClick={() => { }}

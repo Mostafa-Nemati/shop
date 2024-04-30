@@ -6,15 +6,30 @@ export async function GetProducts({ page = 1, per_page = 15 }) {
     return res?.data?.data
 }
 
-export async function createProduct( values : MyFormProductCreate ) {
+export async function GetSingleProduct({ productId }: { productId: number }) {
+    let res = await callApi().get(`/products/${productId}`);
+    return res?.data?.data
+}
+
+
+export async function createProduct(values: MyFormProductCreate) {
     return await callApi().post('/products/create', {
         ...values,
         body: values.description,
-        category : values.category_id
+        category: values.category_id
     });
 
 }
 
-export async function DeleteProduct(productId : number ) {
+export async function UpdateProduct( productId : number, values: MyFormProductCreate) {
+    return await callApi().post(`/products/${productId}/update`, {
+        ...values,
+        body: values.description,
+        category: values.category_id
+    });
+
+}
+
+export async function DeleteProduct(productId: number) {
     return await callApi().post(`/products/${productId}/delete`, {})
 }
