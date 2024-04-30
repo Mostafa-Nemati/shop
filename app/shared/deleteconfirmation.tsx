@@ -13,9 +13,9 @@ interface Props {
 export default function DeleteConfirmation({ handleCancel , handleTrue , title , description } : Props) {
     return (
         <Modal show={true} setShow={handleCancel}>
-            <div className="inline-block w-full max-w-lg my-8 overflow-hidden text-right align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div className="inline-block w-full max-w-sm my-8 overflow-hidden text-right align-middle transition-all transform bg-white shadow-xl rounded-lg">
                 <div className={`flex items-center py-5 px-4  text-gray-800 border-b `}>
-                    <ExclamationCircleIcon className="w-7 h-7 ml-2 text-red-600" />
+                    <ExclamationCircleIcon className="w-7 h-7 ml-2 text-red-600" style={{ width:'30px', color:'red' }}/>
                     <h2 className="text-xl font-bold leading-tight">
                         { title }
                     </h2>
@@ -29,9 +29,9 @@ export default function DeleteConfirmation({ handleCancel , handleTrue , title ,
                  >
                     {({ isSubmitting}) => (
                         <Form>
-                            <div className="p-4 py-4 bg-gray-50 border-t border-gray-200 flex items-center">
+                            <div className="p-4 py-4 bg-gray-50 border-t border-gray-200 flex gap-x-3 items-center" style={{display:'flex', gap:'5px'}}>
                                 <button type="submit"
-                                        className="inline-flex items-center border font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto justify-center sm:justify-start px-4 py-1 text-sm text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-500">
+                                        className="inline-flex items-center border font-medium mx-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto justify-center sm:justify-start px-4 py-1 text-sm text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-500" style={{backgroundColor:'red'}}>
                                     { isSubmitting && <Spinner className="w-4 h-4 ml-2"/> }
                                     حذف
                                 </button>

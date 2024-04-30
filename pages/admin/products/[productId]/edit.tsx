@@ -11,14 +11,9 @@ import { toast } from "react-toastify";
 import FormProductEdit from "../../../../app/components/admin/product/formEdit";
 
 
-const ProductEdit: NextPageWithLayout = ({ productId }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ProductEdit: NextPageWithLayout = ({ productId } : InferGetServerSidePropsType<typeof getServerSideProps >) => {
     const router = useRouter();
-    //const productId = router.query.productId;
-    const { data, error } = useSWR({ url: `admin/products/${productId}/edit`, productId }, GetSingleProduct);
-
-    //if (!router.isReady) {
-    //    return <span>page Is loading ...</span>
-    //}
+    const { data, error } = useSWR({ url: `/admin/products/${productId}/edit`, productId }, GetSingleProduct);
     if (error instanceof ValidationError) {
         router.push('/admin/products/404');
         toast.error('چنین محصولی وجود ندارد');
@@ -45,8 +40,6 @@ const ProductEdit: NextPageWithLayout = ({ productId }: InferGetServerSidePropsT
                                         ? <span>loading ...</span>
                                         : <FormProductEdit product={data.product} />
                                 }
-
-                                <FormProductCreate />
                             </div>
                         </div>
                     </div>

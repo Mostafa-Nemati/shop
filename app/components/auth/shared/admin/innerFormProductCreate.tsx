@@ -10,6 +10,7 @@ type ProductFormProps = FormikProps<MyFormProductCreate> & {
 }
 
 const InnerProductCreateForm = (props: ProductFormProps) => {
+    
     return (
         <Form>
             <div className="p-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-8">

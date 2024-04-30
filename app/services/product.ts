@@ -8,7 +8,7 @@ export async function GetProducts({ page = 1, per_page = 15 }) {
 
 export async function GetSingleProduct({ productId }: { productId: number }) {
     let res = await callApi().get(`/products/${productId}`);
-    return res?.data?.data
+    return res?.data
 }
 
 

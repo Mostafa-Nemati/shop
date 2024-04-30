@@ -4,6 +4,7 @@ import DeleteConfirmation from "../../../shared/deleteconfirmation";
 import { DeleteProduct } from "../../../services/product";
 import { toast } from "react-toastify";
 import { ValidationError } from "yup";
+import Link from "next/link";
 
 interface props {
     product: Product,
@@ -50,9 +51,12 @@ export default function ProductListItem({ product, mutateProducts }: props) {
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{product.title}</td>
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <Link href={`/admin/products/${product.id}/edit`}>
                 <a href="#" className="text-indigo-600 hover:text-indigo-900 ml-4">
                     ویرایش
                 </a>
+                </Link>
+               
                 <button onClick={() => setShowDeleteConfirmation(true)} className="text-indigo-600 hover:text-indigo-900">
                     حذف
                 </button>

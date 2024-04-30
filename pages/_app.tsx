@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
 import { store } from './../app/store';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 

@@ -30,7 +30,6 @@ const FormProductEdit = withFormik<ProductFormProps, MyFormProductCreate>({
     validationSchema: validationSchema,
     handleSubmit: async (values, { props, setFieldError }) => {
         try {
-            console.log(values)
             await UpdateProduct(props.product.id, values)
             Router.push('/admin/products');
             toast.success('محصول مورد نظر با موفقیت ویرایش شد')
