@@ -4,7 +4,9 @@ import callApi from "../../../../pages/api/callApi"
 import validationError from "../../../exceptions/validationError"
 import InnerProductCreateForm from "../../auth/shared/admin/innerFormProductCreate"
 import { MyFormProductCreate } from "../../../constant/admin"
-import Router  from "next/router"
+import Router from "next/router"
+import { createProduct } from "../../../services/product"
+import { toast } from "react-toastify"
 
 const validationSchema = yup.object().shape({
     title: yup.string().required().min(8).max(255),
@@ -27,21 +29,17 @@ const FormProductCreate = withFormik<ProductFormProps, MyFormProductCreate>({
     handleSubmit: async (values, { props, setFieldError }) => {
         try {
             console.log(values)
-            const res = await callApi().post('/products/create', {
-                ...values,
-                body: values.description,
-                category : values.category_id
-            })
+            await createProduct(values)
+            Router.push('/admin/products');
+            toast.success('محصول مورد نظر با موفقیت ثبت شد')
 
-            Router.push('/admin/products')
-            //if (res.status === 200) {
-            //    props.router.push('/auth/login/step-two')
-            //}
         } catch (error) {
             if (error instanceof validationError) {
                 Object.entries(error.message).forEach(([key, value]) => setFieldError(key, value as string))
                 return;
-            }   
+            }
+            toast.error('مشکل در صبت به وجود امده است')
+
             console.log(error)
         }
     }

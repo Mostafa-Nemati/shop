@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
 import { store } from './../app/store';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -16,10 +18,11 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
-    const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => page)
 
   return <Provider store={store}>
     {getLayout( <Component {...pageProps} />)}
+    <ToastContainer />
   </Provider>
 }
 
